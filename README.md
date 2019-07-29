@@ -1,84 +1,87 @@
-# timecapsule #
+# cis
 
-[![Puppet Forge](https://img.shields.io/badge/puppetforge-v0.1.0-blue.svg)](https://forge.puppetlabs.com/swizzley88/cis)
+Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
 
-**Table of Contents**
+The README template below provides a starting point with details about what information to include in your README.
 
-1. [Overview](#overview)
-2. [Module Description](#module-description)
-3. [Setup](#setup)
-4. [Usage](#usage)
-5. [Requirements](#requirements)
-6. [Compatibility](#compatibility)
-7. [Limitations](#limitations)
-8. [Development](#development)
-    * [TODO](#todo)
-    
-## Overview ##
+#### Table of Contents
 
-This is the CIS module for RHEL and Ubuntu based systems for server hardenining. 
+1. [Description](#description)
+2. [Setup - The basics of getting started with cis](#setup)
+    * [What cis affects](#what-cis-affects)
+    * [Setup requirements](#setup-requirements)
+    * [Beginning with cis](#beginning-with-cis)
+3. [Usage - Configuration options and additional functionality](#usage)
+4. [Limitations - OS compatibility, etc.](#limitations)
+5. [Development - Guide for contributing to the module](#development)
 
+## Description
 
-## Module Description ##
+Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
 
-This is a fully parametarized module for hardening servers to the CIS benchmark. The parameters let you easily specify to which degree you want to harden and easily allow for exceptions. This module includes everything scored in the latest CIS benchmarks which can be found in my CIS github repo.
+This should be a fairly short description helps the user decide if your module is what they want.
 
+## Setup
 
-## Setup ##
+### What cis affects **OPTIONAL**
 
-You may need to setup a mail relay, or if your in AWS and using SES, replace the cis::mail stuff with your SES credentials and include the SES module from the forge. Other than that just see the params for all your settings. 
+If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
 
-## Usage ##
+If there's more that they should know about, though, this is the place to mention:
+
+* Files, packages, services, or operations that the module will alter, impact, or execute.
+* Dependencies that your module automatically installs.
+* Warnings or other important notices.
+
+### Setup Requirements **OPTIONAL**
+
+If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
+
+If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+
+### Beginning with cis
+
+The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+
+## Usage
+
+Include usage examples for common use cases in the **Usage** section. Show your users how to use your module to solve problems, and be sure to include code examples. Include three to five examples of the most important or common tasks a user can accomplish with your module. Show users how to accomplish more complex tasks that involve different types, classes, and functions working in tandem.
+
+## Reference
+
+This section is deprecated. Instead, add reference information to your code as Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your module. For details on how to add code comments and generate documentation with Strings, see the Puppet Strings [documentation](https://puppet.com/docs/puppet/latest/puppet_strings.html) and [style guide](https://puppet.com/docs/puppet/latest/puppet_strings_style.html)
+
+If you aren't ready to use Strings yet, manually create a REFERENCE.md in the root of your module directory and list out each of your module's classes, defined types, facts, functions, Puppet tasks, task plans, and resource types and providers, along with the parameters for each.
+
+For each element (class, defined type, function, and so on), list:
+
+  * The data type, if applicable.
+  * A description of what the element does.
+  * Valid values, if the data type doesn't make it obvious.
+  * Default value, if any.
+
+For example:
 
 ```
-include ::cis
+### `pet::cat`
+
+#### Parameters
+
+##### `meow`
+
+Enables vocalization in your cat. Valid options: 'string'.
+
+Default: 'medium-loud'.
 ```
 
-## Requirements ##
+## Limitations
 
-puppetlabs/stdlib >=4.6.0
+In the Limitations section, list any incompatibilities, known issues, or other warnings.
 
-puppetlabs/firewall >=1.1.3
+## Development
 
-kemra102/auditd >=1.0.2
+In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
 
-fiddyspence/sysctl >=1.1.0
+## Release Notes/Contributors/Etc. **Optional**
 
-mjhas/postfix >=1.0.0
-
-jfryman/selinux >=0.2.3
-
-## Compatibility ##
-
-  * RHEL 6,7
-  * CentOS 6,7
-  * Fedora 20,20,21
-  * Ubuntu 12.04,14.04
-  * Debian 6,7
-
-## Limitations ##
-
-This module has been tested on:
-
-  - RHEL 6,7
-  - Ubuntu 14.04 
-
-## Development ##
-
-Any updates or contibutions are welcome.
-
-Report any issues with current release, as any input will be considered valuable.
-
-
-#### TODO ####
-
-  * add option for postfix or ses in params
- 
-###### Contact ######
-
-Email:  morgan@aspendenver.org
-
-WWW:    www.aspendenver.org
-
-Github: https://github.com/swizzley
-
+If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.

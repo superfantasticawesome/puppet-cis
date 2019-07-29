@@ -1,11 +1,10 @@
-# Class: cis
+# @summary A short summary of the purpose of this class
 #
-# This module manages cis benchmarks
+# A description of what this class does
 #
-# Sample Usage: include cis
-#
-#
-class cis (
+# @example
+#   include cis
+class cis {
   # general options
   $service_exceptions      = $cis::params::service_exceptions,
   $ban_exceptions          = $cis::params::ban_exceptions,
@@ -70,4 +69,5 @@ class cis (
   class { '::cis::auditd' : }
   class { '::cis::hosts' : }
   class { '::cis::authentication' : }
+}
 }

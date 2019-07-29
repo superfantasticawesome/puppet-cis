@@ -1,57 +1,66 @@
 {
-  "name": "puppet-cis",
-  "version": "1.0.0",
-  "author": "Gerard Ryan",
-  "summary": null,
+  "name": "centos-cis",
+  "version": "0.1.0",
+  "author": "centos",
+  "summary": "",
   "license": "Apache-2.0",
   "source": "",
-  "project_page": null,
-  "issues_url": null,
   "dependencies": [
+
+  ],
+  "operatingsystem_support": [
     {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">=4.6.0"
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
     },
     {
-      "name": "puppetlabs/firewall",
-      "version_requirement": ">=1.1.3"
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "7"
+      ]
     },
     {
-      "name": "kemra102/auditd",
-      "version_requirement": ">=1.0.2"
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
     },
     {
-      "name": "puppet/selinux",
-      "version_requirement": ">=3.0.0"
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "7"
+      ]
     },
     {
-      "name": "mjhas/postfix",
-      "version_requirement": ">=1.0.0"
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
     },
     {
-      "name": "puppetlabs/inifile",
-      "version_requirement": ">=1.0.0"
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
     },
     {
-      "name": "puppetlabs/ntp",
-      "version_requirement": ">=1.0.0"
-    },
-    {
-      "name": "herculesteam/augeasproviders",
-      "version_requirement": ">=2.1.3"
-    },
-    {
-      "name": "herculesteam/augeasproviders_sysctl",
-      "version_requirement": ">=2.0.2"
-    },
-    {
-      "name": "herculesteam/augeasproviders_ssh",
-      "version_requirement": ">=2.5.0"
-    },
-    {
-      "name": "herculesteam/augeasproviders_pam",
-      "version_requirement": ">=2.1.0"
+      "operatingsystem": "windows",
+      "operatingsystemrelease": [
+        "2008 R2",
+        "2012 R2",
+        "10"
+      ]
     }
   ],
-  "data_provider": null
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
+  ],
+  "pdk-version": "1.11.1",
+  "template-url": "pdk-default#1.11.1",
+  "template-ref": "1.11.1-0-g2ff8c24"
 }
