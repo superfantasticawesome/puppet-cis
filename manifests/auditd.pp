@@ -4,8 +4,8 @@ class cis::auditd {
 
   # Ensure octal permissions on /var/log/audit
   file { '/var/log/audit':
-    ensure  => directory,
-    mode    => '0700',
+    ensure => directory,
+    mode   => '0700',
   }
 
   case $::operatingsystem {
@@ -288,7 +288,6 @@ class cis::auditd {
     if 'x64' in "${description}" and ! '64' in $::facts['os']['architecture'] {
       notice("OS architecture ${::facts['os']['architecture']} doesn't support this rule")
     } else {
-      # notify { "AUDITD: $description\n -> $rules": }
       ::auditd::rule { "${description}":
         content => $rules[content],
         order   => $rules[order],
