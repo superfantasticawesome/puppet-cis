@@ -1,6 +1,6 @@
 {
-  "name": "glic-cis",
-  "version": "1.0.7",
+  "name": "puppet-cis",
+  "version": "1.0.0",
   "author": "Gerard Ryan",
   "summary": null,
   "license": "Apache-2.0",
@@ -21,8 +21,8 @@
       "version_requirement": ">=1.0.2"
     },
     {
-      "name": "jfryman/selinux",
-      "version_requirement": ">=0.2.3"
+      "name": "puppet/selinux",
+      "version_requirement": ">=3.0.0"
     },
     {
       "name": "mjhas/postfix",
