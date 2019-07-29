@@ -1,9 +1,15 @@
 # class cis::services
-class cis::services ($services = $cis::params::services) inherits cis::params {
+class cis::services inherits cis::params {
   require cis::packages
 
-  service { $services:
-    ensure => 'running',
-    enable => true,
+  cis::services::apply { $cis::params::services: }
+}
+
+define cis::services::apply {
+  if ! defined(Service["${name}"]) {
+    service{ "${name}":
+      ensure => 'running',
+      enable => true,
+    }
   }
 }

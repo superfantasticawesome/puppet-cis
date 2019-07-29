@@ -1,4 +1,4 @@
 # class cis::packages
-class cis::packages ($packages = $cis::params::packages) inherits cis::params {
-  package { $packages: ensure => 'installed', }
+class cis::packages inherits cis::params {
+  ensure_packages($cis::params::packages)
 }

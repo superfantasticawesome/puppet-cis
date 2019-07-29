@@ -1,0 +1,17 @@
+---
+cis_options:
+  ban_exceptions:
+    - 'httpd'
+    - 'samba'
+  service_exceptions:
+    - 'rpcbind'
+    - 'rpcidmapd'
+  nat_instance: false
+  secure_grub: false
+  manage_aide: true
+  manage_local_firewall: false
+  manage_local_passwords: false
+  manage_motd: true
+  manage_ntp: false
+  manage_selinux: true
+  selinux_mode: 'disabled'

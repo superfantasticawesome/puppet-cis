@@ -1,11 +1,22 @@
-class cis::banned ($banned = $cis::params::banned, $disabled = $cis::params::disabled) inherits cis::params {
+class cis::banned inherits cis::params {
   require cis::services
 
-  service { $disabled:
-    ensure => 'stopped',
-    enable => false,
+  cis::banned::service { $cis::params::disabled: }
+  cis::banned::package { $cis::params::banned: }
+}
+
+define cis::banned::service {
+  if ! defined(Service["${name}"]) {
+     service{ "${name}": ensure => 'stopped', enable => false, }
   }
+}
 
-  package { $banned: ensure => 'absent', }
-
+define cis::banned::package {
+  if ! defined(Package["${name}"]) {
+    case $name {
+      /^(ypbind|yp-tools)$/: { $ensure = 'purged' }
+      default: { $ensure = 'absent' }
+    } 
+    package{ "${name}": ensure => $ensure, }
+  }
 }

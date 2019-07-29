@@ -1,50 +1,86 @@
 # Class: cis
 #
-# This module manages cis parameters
+# This module manages cis benchmarks
 #
 # Parameters: see params and exceptions
 #
-#
-# Requires: sysctl, firewall, stdlib
+# Requires:
+# kemra102-auditd
+# mjhas-postfix
+# jfryman-selinux
+# puppetlabs-inifile
+# puppetlabs-ntp
+# puppetlabs-stdlib
+# puppetlabs-vcsrepo
+# puppetlabs-firewall
+# herculesteam-augeasproviders
 #
 # Sample Usage: include cis
 #
-# Scope:
-#   Services:
-#      audit, sshd, iptables, crond, syslog, grub
-#   Configuration:
-#      system-auth, shell, profile, tty, useradd, pam, banner
 #
-class cis ($secure_grub = $cis::params::secure_grub, $aide = $cis::params::aide, $nat_box = $cis::params::nat_box, $ssh = $cis::params::ssh,
-  $postfix = $cis::params::postfix) inherits cis::params {
+class cis (
+  # general options
+  $service_exceptions      = $cis::params::service_exceptions,
+  $ban_exceptions          = $cis::params::ban_exceptions,
+  $nat_instance            = $cis::params::nat_instance,
+  $secure_grub             = $cis::params::secure_grub,
+  $manage_aide             = $cis::params::manage_aide,
+  $manage_local_firewall   = $cis::params::manage_local_firewall,
+  $manage_local_passwords  = $cis::params::manage_local_passwords,
+  $manage_motd             = $cis::params::manage_motd,
+  $manage_ntp              = $cis::params::manage_ntp,
+  $manage_selinux          = $cis::params::manage_selinux,
+  $selinux_mode            = $cis::params::selinux_mode,
+  # authentication/shadow.pp
+  $pasword_max_days        = $cis::params::pasword_max_days,
+  $password_min_days       = $cis::params::password_min_days,
+  $password_warn_age       = $cis::params::password_warn_age,
+  # authentication/pam.pp
+  $pwquality_minlen        = $cis::params::pwquality_minlen,
+  $pwquality_dcredit       = $cis::params::pwquality_dcredit,
+  $pwquality_ucredit       = $cis::params::pwquality_ucredit,
+  $pwquality_ocredit       = $cis::params::pwquality_ocredit,
+  $pwquality_lcredit       = $cis::params::pwquality_lcredit,
+  # kernel.pp
+  $accept_all_src_routes   = $cis::params::accept_all_src_routes,
+  $accept_redirects        = $cis::params::accept_redirects,
+  $validate_route          = $cis::params::validate_route,
+  # mail.pp
+  $sender_hostname         = $cis::params::sender_hostname,
+  $masquerade_domains      = $cis::params::masquerade_domains,
+  $relayhost               = $cis::params::relayhost,
+  # authentication/ssh.pp
+  $ssh_x11_forwarding      = $cis::params::ssh_x11_forwarding,
+  $permit_root_login       = $cis::params::permit_root_login,
+  $hostbasedauthentication = $cis::params::hostbasedauthentication
+) inherits cis::params {
+  if $manage_selinux {
+    class { selinux: mode => $selinux_mode }
+  }
 
   if $secure_grub {
-    include cis::grub
+    class { '::cis::grub' : }
   }
 
-  if $nat_box != true {
-    include cis::kernel
+  if ! $nat_instance {
+    class { '::cis::kernel' : }
   }
 
-  if $aide {
-    package { 'aide': ensure => 'installed', }
-    -> cron { 'aide_watch':
-      command => '/usr/sbin/aide --check',
-      user    => root,
-      hour    => 5,
-      minute  => 0
-    }
+  if $manage_local_firewall {
+    class { '::cis::firewall::apply': }
   }
-  include cis::packages
-  include cis::services
-  include cis::banned
-  if $ssh {
-    include cis::authentication
+
+  if $manage_ntp {
+    class { '::cis::ntp' : }
   }
-  include cis::cron
-  include cis::auditd_rules
-  if $postfix {
-    include cis::mail
-  }
-  include cis::inspect
+
+  class { '::cis::prelink' : }
+  class { '::cis::aide' : }
+  class { '::cis::packages' : }
+  class { '::cis::services' : }
+  class { '::cis::banned' : }
+  class { '::cis::cron' : }
+  class { '::cis::auditd' : }
+  class { '::cis::hosts' : }
+  class { '::cis::authentication' : }
 }
