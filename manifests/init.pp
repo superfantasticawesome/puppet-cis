@@ -2,19 +2,6 @@
 #
 # This module manages cis benchmarks
 #
-# Parameters: see params and exceptions
-#
-# Requires:
-# kemra102-auditd
-# mjhas-postfix
-# jfryman-selinux
-# puppetlabs-inifile
-# puppetlabs-ntp
-# puppetlabs-stdlib
-# puppetlabs-vcsrepo
-# puppetlabs-firewall
-# herculesteam-augeasproviders
-#
 # Sample Usage: include cis
 #
 #
