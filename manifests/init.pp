@@ -46,11 +46,11 @@ class cis {
   }
 
   if $secure_grub {
-    class { '::cis::grub' : }
+    class { '::cis::grub': }
   }
 
   if ! $nat_instance {
-    class { '::cis::kernel' : }
+    class { '::cis::kernel': }
   }
 
   if $manage_local_firewall {
@@ -58,16 +58,16 @@ class cis {
   }
 
   if $manage_ntp {
-    class { '::cis::ntp' : }
+    class { '::cis::ntp': }
   }
 
-  class { '::cis::prelink' : }
-  class { '::cis::aide' : }
-  class { '::cis::packages' : }
-  class { '::cis::services' : }
-  class { '::cis::banned' : }
-  class { '::cis::cron' : }
-  class { '::cis::auditd' : }
-  class { '::cis::hosts' : }
-  class { '::cis::authentication' : }
+  class { '::cis::prelink': }
+  class { '::cis::aide': }
+  class { '::cis::packages': }
+  class { '::cis::services': }
+  class { '::cis::banned': }
+  class { '::cis::cron': }
+  class { '::cis::auditd': }
+  class { '::cis::hosts': }
+  class { '::cis::authentication': }
 }
