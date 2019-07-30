@@ -71,4 +71,3 @@ class cis {
   class { '::cis::hosts' : }
   class { '::cis::authentication' : }
 }
-}
