@@ -4,6 +4,7 @@
 #
 # @example
 #   include cis
+#
 class cis {
   # general options
   $service_exceptions      = $cis::params::service_exceptions,
