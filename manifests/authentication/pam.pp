@@ -3,7 +3,7 @@
 class cis::authentication::pam inherits cis::params {
 
   case $::operatingsystem {
-    'OracleLinux', 'RedHat', 'CentOS', 'Fedora' : {
+    'OracleLinux', 'RedHat', 'CentOS', 'Fedora': {
       $pam_password = 'system-auth'
       $pam_auth     = 'password-auth'
 
@@ -24,13 +24,13 @@ class cis::authentication::pam inherits cis::params {
       }
 
       case $::facts['os']['release']['major'] {
-        '7' : {
+        '7': {
           # CIS Set Password Creation Requirement Parameters Using pam_pwquality
           #
           $pwquality_settings = {
             "pwquality minlen" => {
-              setting          => 'minlen',
-              value            => "${$pwquality_minlen}",
+              setting => 'minlen',
+              value   => "${$pwquality_minlen}",
             },
             "pwquality dcredit" => {
               setting => 'dcredit',
@@ -54,7 +54,7 @@ class cis::authentication::pam inherits cis::params {
           }
 
           $pam_settings_for_rhel7 = {
-            "Set pam_pwquality.so password control in $pam_password for $::operatingsystem" => {
+            "Set pam_pwquality.so password control in $pam_password for $::facts['os']['family']" => {
               service   => $pam_password,
               type      => 'password',
               control   => ['requisite'],
@@ -66,13 +66,13 @@ class cis::authentication::pam inherits cis::params {
             create_resources(cis::authentication::pam::apply, $pam_settings_for_rhel7)
           }
         }
-        default : {
+        default: {
         }
       }
       $pam_settings = {
         #  CIS: Set Password Creation Requirement Parameters Using pam_cracklib
         #
-        "Set pam_cracklib.so password control in $pam_password for $::operatingsystem" => {
+        "Set pam_cracklib.so password control in $pam_password for $::facts['os']['family']" => {
           service   => $pam_password,
           type      => 'password',
           control   => ['required'],
@@ -82,7 +82,7 @@ class cis::authentication::pam inherits cis::params {
 
         # CIS Limit Password Reuse
         #
-        "Set pam_unix.so password control in $pam_password for $::operatingsystem"     => {
+        "Set pam_unix.so password control in $pam_password for $::facts['os']['family']" => {
           service   => $pam_password,
           type      => 'password',
           control   => ['sufficient'],
@@ -93,7 +93,7 @@ class cis::authentication::pam inherits cis::params {
 
         # CIS Restrict Access to the su Command
         #
-        "Set pam_wheel.so auth control in su for $::operatingsystem"                   => {
+        "Set pam_wheel.so auth control in su for $::facts['os']['family']" => {
           service   => "su",
           type      => 'auth',
           control   => ['required'],
@@ -102,7 +102,7 @@ class cis::authentication::pam inherits cis::params {
         }
       }
     }
-    'Debian', 'Ubuntu' : {
+    'Debian', 'Ubuntu': {
       $pam_password = 'common-password'
       $pam_auth     = 'common-auth'
 
@@ -113,7 +113,7 @@ class cis::authentication::pam inherits cis::params {
       $pam_settings = {
         # CIS Set Lockout for Failed Password Attempts
         #
-        "Set pam_tally2.so login control in login for $::operatingsystem"              => {
+        "Set pam_tally2.so login control in login for $::facts['os']['family']" => {
           service   => 'login',
           type      => 'auth',
           control   => ['required'],
@@ -124,7 +124,7 @@ class cis::authentication::pam inherits cis::params {
 
         #  CIS: Set Password Creation Requirement Parameters Using pam_cracklib
         #
-        "Set pam_cracklib.so password control in $pam_password for $::operatingsystem" => {
+        "Set pam_cracklib.so password control in $pam_password for $::facts['os']['family']" => {
           service   => $pam_password,
           type      => 'password',
           control   => ['required'],
@@ -134,7 +134,7 @@ class cis::authentication::pam inherits cis::params {
 
         # CIS Limit Password Reuse
         #
-        "Set pam_unix.so password control in $pam_password for $::operatingsystem"     => {
+        "Set pam_unix.so password control in $pam_password for $::facts['os']['family']" => {
           service   => $pam_password,
           type      => 'password',
           control   => ['success=1', 'default=ignore'],
@@ -145,7 +145,7 @@ class cis::authentication::pam inherits cis::params {
 
         # CIS Restrict Access to the su Command
         #
-        "Set pam_wheel.so auth control in su for $::operatingsystem"                   => {
+        "Set pam_wheel.so auth control in su for $::facts['os']['family']" => {
           service   => "su",
           type      => 'auth',
           control   => ['required'],
@@ -204,8 +204,8 @@ define cis::authentication::pam::file {
 # Affect changes to /etc/security/pwquality.conf on RHEL-based systems
 #
 define cis::authentication::pam::pwquality (
-  $ensure   = 'present',
-  $path     = '/etc/security/pwquality.conf',
+  $ensure = 'present',
+  $path   = '/etc/security/pwquality.conf',
   $setting,
   $value,
 ) {
