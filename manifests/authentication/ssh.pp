@@ -7,12 +7,10 @@ class cis::authentication::ssh inherits cis::params {
 
   # CIS Set Permissions on /etc/ssh/sshd_config
   #
-  if ! defined(File['/etc/ssh/sshd_config']) {
-    file { '/etc/ssh/sshd_config':
-      owner => 'root',
-      group => 'root',
-      mode  => '0600',
-    }
+  file { '/etc/ssh/sshd_config':
+    owner => 'root',
+    group => 'root',
+    mode  => '0600',
   }
 
   # See: https://forge.puppetlabs.com/herculesteam/augeasproviders_ssh
@@ -90,18 +88,11 @@ class cis::authentication::ssh inherits cis::params {
       value => ['/etc/issue.net'],
     }
   }
-
-  create_resources( cis::authentication::ssh::config, $sshd_config )
-}
-
-define cis::authentication::ssh::config (
-  $ensure = 'present',
-  $value
-) {
-  if ! defined(Sshd_config[$name]) {
-    sshd_config { $name:
-      ensure => $ensure,
-      value  => $value,
+  
+  $sshd_config.each |String $config, Hash $values| {
+    sshd_config { "${config}":
+      ensure => present,
+      value  => $values['value'],
     }
   }
 }
