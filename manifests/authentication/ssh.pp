@@ -89,10 +89,10 @@ class cis::authentication::ssh inherits cis::params {
     }
   }
   
-  $sshd_config.each |String $config, Hash $values| {
+  $sshd_config.each |String $config, Hash $data| {
     sshd_config { "${config}":
       ensure => present,
-      value  => $values['value'],
+      value  => $data['value'],
     }
   }
 }
