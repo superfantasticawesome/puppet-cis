@@ -9,18 +9,14 @@ class cis::authentication::pam inherits cis::params {
 
       # CIS Upgrade Password Hashing Algorithm to SHA-512
       #
-      if ! defined(Package['authconfig']) {
-        package { 'authconfig':
-          ensure => installed,
-        }
+      package { 'authconfig':
+        ensure => installed,
       }
 
-      if ! defined(Exec['authconfig --passalgo=sha512 --update']) {
-        exec { 'authconfig --passalgo=sha512 --update':
-          path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
-          unless  => 'authconfig --test | grep hashing | grep sha512',
-          require => Package['authconfig'],
-        }
+      exec { 'authconfig --passalgo=sha512 --update':
+        path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
+        unless  => 'authconfig --test | grep hashing | grep sha512',
+        require => Package['authconfig'],
       }
 
       case $::facts['os']['release']['major'] {
@@ -175,29 +171,25 @@ define cis::authentication::pam::apply (
   $arguments = undef,
   $position  = undef
 ) {
-  if ! defined(Pam["${name}"]) {
-    pam { "${name}":
-      ensure    => $ensure,
-      service   => $service,
-      type      => $type,
-      control   => [$control],
-      module    => $module,
-      arguments => [$arguments],
-      position  => $position
-    }
+  pam { "${name}":
+    ensure    => $ensure,
+    service   => $service,
+    type      => $type,
+    control   => [$control],
+    module    => $module,
+    arguments => [$arguments],
+    position  => $position
   }
 }
 
 # Set ownership/permissions on pam.d files
 #
 define cis::authentication::pam::file {
-  if ! defined(File["/etc/pam.d/${name}"]) {
-    file { "/etc/pam.d/${name}":
-      ensure => present,
-      mode   => '0644',
-      owner  => 'root',
-      group  => 'root',
-    }
+  file { "/etc/pam.d/${name}":
+    ensure => present,
+    mode   => '0644',
+    owner  => 'root',
+    group  => 'root',
   }
 }
 
@@ -209,12 +201,10 @@ define cis::authentication::pam::pwquality (
   $setting,
   $value,
 ) {
-  if ! defined(Ini_setting["${name}"]) {
-    ini_setting { "${name}":
-      ensure  => $ensure,
-      path    => $path,
-      setting => $setting,
-      value   => $value,
-    }
+  ini_setting { "${name}":
+    ensure  => $ensure,
+    path    => $path,
+    setting => $setting,
+    value   => $value,
   }
 }
