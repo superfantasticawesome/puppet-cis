@@ -1,7 +1,4 @@
 # class: cis::authentication::ssh
-# NOTE: If having difficulty authenticating via password-based logins, e.g.,
-#       'Received disconnect from <host>: Too many authentication failures for <username>'
-#       Try "ssh -o PubkeyAuthentication=no username@hostname.com"
 #
 class cis::authentication::ssh inherits cis::params {
 
