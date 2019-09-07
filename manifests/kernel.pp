@@ -138,7 +138,7 @@ class cis::kernel inherits cis::params {
   $sysctl_settings.each |String $setting, Hash $h| {
     sysctl { "${setting}":
       ensure => present,
-      value  => $h['value'],
+      *      => $h,
     }
   }
 }
