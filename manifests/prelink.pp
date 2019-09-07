@@ -35,7 +35,6 @@ class cis::prelink {
   }
 
   exec { 'prelink -ua':
-    onlyif  => "${prelink_installed} && ${prelink_enabled}",
-    timeout => 0,
+    onlyif => "${prelink_installed} && ${prelink_enabled}",
   }
 }
