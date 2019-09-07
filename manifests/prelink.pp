@@ -4,7 +4,7 @@ class cis::prelink {
   # See: https://linux.web.cern.ch/linux/rhel/releasenotes/RELEASE-NOTES-7.0-x86_64/#removed-packages
   # Additionally, there's a scored CIS benchmark to *remove* prelink from Debian/Ubuntu systems
   #
-  Exec { path            => ['/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/'] }
+  Exec { path => ['/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/'] }
 
   case $::facts['os']['family'] {
     'OracleLinux', 'RedHat', 'CentOS', 'Fedora', 'Amazon' : {
