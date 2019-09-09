@@ -61,7 +61,7 @@ class cis (
     class { '::cis::ntp': }
   }
   
-  if ($manage_aide) {
+  if $manage_aide {
     class { '::cis::aide': }
   }
   
