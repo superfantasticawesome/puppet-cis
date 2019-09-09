@@ -60,9 +60,12 @@ class cis (
   if $manage_ntp {
     class { '::cis::ntp': }
   }
-
+  
+  if ($manage_aide) {
+    class { '::cis::aide': }
+  }
+  
   class { '::cis::prelink': }
-  class { '::cis::aide': }
   class { '::cis::packages': }
   class { '::cis::services': }
   class { '::cis::banned': }
