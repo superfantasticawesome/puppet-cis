@@ -34,19 +34,4 @@ class cis::aide inherits cis::params {
     refreshonly => true,
     timeout     => 0,
   }
-    
-  # Copy the newly initiailized db for RHEL-based systems
-  # NOTE: This isn't necessary for Debian-based systems
-  #
-  case $::operatingsystem {
-    'OracleLinux', 'RedHat', 'CentOS', 'Fedora', 'Amazon' : {
-      exec { '/bin/mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz':
-        refreshonly => true,
-        onlyif      => '/bin/ls /var/lib/aide/aide.db.new.gz',
-        subscribe   => Exec["/usr/sbin/${aide_init}"],
-      }
-    }
-    default: {
-    }
-  }
 }
