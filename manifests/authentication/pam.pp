@@ -1,6 +1,6 @@
 # class cis::authentication::pam
 #
-class cis::authentication::pam inherits cis::params {
+class cis::authentication::pam inherits cis {
 
   case $::operatingsystem {
     'OracleLinux', 'RedHat', 'CentOS', 'Fedora': {
