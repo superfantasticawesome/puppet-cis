@@ -141,7 +141,7 @@ class cis::params {
       $umask_user        = '077'
       $ssh_daemon        = 'ssh'
       $http_daemon       = 'apache2'
-      $service_base      = ['cron', $ssh_daemon, 'apparmor']
+      $services          = ['cron', $ssh_daemon, 'apparmor']
       $packages          = ['tcpd', 'apparmor-utils', 'apparmor-profiles']
       $disabled_services = ['rsync',]
       # Prelink is now managed in cis::prelink
