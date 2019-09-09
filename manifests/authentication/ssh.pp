@@ -1,6 +1,6 @@
 # class: cis::authentication::ssh
 #
-class cis::authentication::ssh inherits cis::params {
+class cis::authentication::ssh inherits cis {
 
   # CIS Set Permissions on /etc/ssh/sshd_config
   #
