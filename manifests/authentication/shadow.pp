@@ -1,6 +1,6 @@
 # class cis::authentication::shadow
 #
-class cis::authentication::shadow inherits cis::params {
+class cis::authentication::shadow inherits cis {
   # CIS Set Shadow Password Suite Parameters
   #
 
